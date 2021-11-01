@@ -110,7 +110,7 @@ class Parser:
                             h1 = container.find(
                                 "h1", class_="product-card-type-a__header-title"
                             )
-                            title = h1.text.strip()
+                            title = str(h1.text.strip())
                             drink_info["title"] = title
                         except:
                             pass
@@ -120,6 +120,10 @@ class Parser:
                                 "div", class_="product-buy__price"
                             ).text.strip()
                             price = re.findall(r"\d+", price)
+                            if len(price) == 1:
+                                price = price[0]
+                            elif len(price) == 2:
+                                price = price[0] + price[1]
                             drink_info["price"] = price
                         except:
                             pass
@@ -173,8 +177,7 @@ class Parser:
                         h1 = container.find(
                             "h1", class_="product-card-type-a__header-title"
                         )
-                        title = h1.text.strip()
-
+                        title = str(h1.text.strip())
                         drink_info["title"] = title
                     except:
                         pass
@@ -184,7 +187,10 @@ class Parser:
                             "div", class_="product-buy__price"
                         ).text.strip()
                         price = re.findall(r"\d+", price)
-
+                        if len(price) == 1:
+                            price = price[0]
+                        elif len(price) == 2:
+                            price = price[0] + price[1]
                         drink_info["price"] = price
                     except:
                         pass
@@ -194,7 +200,7 @@ class Parser:
                             "div", class_="product-buy__discount"
                         ).text.strip()
                         discount = re.findall(r"\d+", discount)
-                        drink_info["discount"] = discount
+                        drink_info["discount"] = discount[0]
                     except:
                         pass
 
@@ -251,7 +257,7 @@ class Parser:
     def write_to_csv(self):
         print("Writing csv")
 
-        with open("test.csv", "w") as file:
+        with open("test.csv", "w", encoding="utf-8") as file:
             headers = ["title", "price", "discount",
                        "num_scores", "rating", "link"]
             w = csv.DictWriter(file, headers)
