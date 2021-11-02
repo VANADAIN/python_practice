@@ -120,10 +120,6 @@ class Parser:
                                 "div", class_="product-buy__price"
                             ).text.strip()
                             price = re.findall(r"\d+", price)
-                            if len(price) == 1:
-                                price = price[0]
-                            elif len(price) == 2:
-                                price = price[0] + price[1]
                             drink_info["price"] = price
                         except:
                             pass
@@ -187,10 +183,6 @@ class Parser:
                             "div", class_="product-buy__price"
                         ).text.strip()
                         price = re.findall(r"\d+", price)
-                        if len(price) == 1:
-                            price = price[0]
-                        elif len(price) == 2:
-                            price = price[0] + price[1]
                         drink_info["price"] = price
                     except:
                         pass
